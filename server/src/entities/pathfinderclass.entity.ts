@@ -1,5 +1,8 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
 import { Url } from 'url';
+
+import { PathfinderClassSpell } from './pathfinderclassspell.entity';
+
 @Entity()
 export class PathfinderClass {
   @PrimaryColumn("varchar", {length: 120})
@@ -10,4 +13,7 @@ export class PathfinderClass {
 
   @Column("simple-json")
   spells_per_day: JSON;
+
+  @OneToMany(() => PathfinderClassSpell, (pathfinderClassSpell) => pathfinderClassSpell.spellcaster_class)
+  classSpells: PathfinderClassSpell[];
 }

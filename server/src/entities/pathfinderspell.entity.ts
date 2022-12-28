@@ -1,5 +1,7 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
 import { Url } from 'url';
+
+import { PathfinderClassSpell } from './pathfinderclassspell.entity';
 
 @Entity()
 export class PathfinderSpell {
@@ -35,4 +37,7 @@ export class PathfinderSpell {
 
   @Column("varchar", {length: 25})
   spell_resistance: string;
+
+  @OneToMany(() => PathfinderClassSpell, (pathfinderClassSpell) => pathfinderClassSpell.spell)
+  spellClasses: PathfinderClassSpell[];
 }

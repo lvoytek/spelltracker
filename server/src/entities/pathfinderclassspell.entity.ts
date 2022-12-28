@@ -1,21 +1,18 @@
-import { Entity, Column, PrimaryColumn, ManyToMany } from 'typeorm';
+import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { PathfinderClass } from './pathfinderclass.entity';
 import { PathfinderSpell } from './pathfinderspell.entity';
 
 @Entity()
 export class PathfinderClassSpell {
-  @PrimaryColumn()
-  pathfinderClassName: string;
-
-  @PrimaryColumn()
-  pathfinderSpellName: string;
+  @PrimaryGeneratedColumn()
+  id: number
 
   @Column("tinyint")
   spell_level: number;
 
-  @ManyToMany(() => PathfinderClass)
-  pathfinderClass: PathfinderClass;
+  @ManyToOne(() => PathfinderClass, (pathfinderClass) => pathfinderClass.classSpells)
+  spellcaster_class: PathfinderClass;
 
-  @ManyToMany(() => PathfinderSpell)
-  pathfinderSpell: PathfinderSpell;
+  @ManyToOne(() => PathfinderSpell, (pathfinderSpell) => pathfinderSpell.spellClasses)
+  spell: PathfinderSpell;
 }
