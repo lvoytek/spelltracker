@@ -8,9 +8,8 @@ import { MatSidenav } from '@angular/material/sidenav';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  @ViewChild(MatSidenav, {static: true})
   title = 'client';
-  sidenav!: MatSidenav;
+  @ViewChild('sidenav', {static: true}) sidenav: MatSidenav = {} as MatSidenav;
 
   constructor(private observer: BreakpointObserver) {}
 
