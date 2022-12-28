@@ -18,6 +18,10 @@ export class ClassService {
     return await this.classRepository.findOneBy({name: className});
   }
 
+  async getAll(): Promise<PathfinderClass[]> {
+    return await this.classRepository.find();
+  }
+
   async delete(className: string): Promise<DeleteResult> {
     return await this.classRepository.delete({name: className});
   }

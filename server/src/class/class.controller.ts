@@ -11,6 +11,11 @@ export class ClassController {
     return this.classService.get(name);
   }
 
+  @Get()
+  async readAll(): Promise<PathfinderClass[]> {
+    return this.classService.getAll();
+  }
+
   @Post('add')
   async create(@Body() pathfinderClass: PathfinderClass): Promise<any> {
     return this.classService.create(pathfinderClass);
