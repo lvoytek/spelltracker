@@ -19,13 +19,13 @@ import { SpellController } from './spell/spell.controller';
       database: process.env["DB_NAME"] || "spelltracker",
       username: process.env["DB_USERNAME"] || "root",
       password: process.env["DB_PASSWORD"] || "",
-      entities: [__dirname + '/**/*.entity.ts'],
+      entities: [__dirname + '/**/*.entity.{js,ts}'],
       synchronize: true,
     } :
     {
       type: "sqlite",
       database: process.env["DB_NAME"] || "../db.sqlite3",
-      entities: [__dirname + '/**/*.entity.ts'],
+      entities: [__dirname + '/**/*.entity.{js,ts}'],
       synchronize: true,
     }
     ),
