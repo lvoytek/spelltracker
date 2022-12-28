@@ -4,6 +4,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
+import { PathfinderClass } from './entities/pathfinderclass.entity';
+import { PathfinderClassSpell } from './entities/pathfinderclassspell.entity';
+import { PathfinderSpell } from './entities/pathfinderspell.entity';
+
+import { SpellService } from './spell/spell.service';
+import { SpellController } from './spell/spell.controller';
+
 @Module({
   imports: [TypeOrmModule.forRoot(
     (process.env["DB_TYPE"] && process.env["DB_TYPE"] != "sqlite") ?
@@ -21,8 +28,10 @@ import { AppService } from './app.service';
       entities: [__dirname + '/**/*.entity.ts'],
       synchronize: true,
     }
-    )],
-  controllers: [AppController],
-  providers: [AppService],
+    ),
+    TypeOrmModule.forFeature([PathfinderClass, PathfinderSpell, PathfinderClassSpell])
+  ],
+  controllers: [AppController, SpellController],
+  providers: [AppService, SpellService],
 })
 export class AppModule {}
