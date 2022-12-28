@@ -10,6 +10,8 @@ import { PathfinderSpell } from './entities/pathfinderspell.entity';
 
 import { SpellService } from './spell/spell.service';
 import { SpellController } from './spell/spell.controller';
+import { ClassService } from './class/class.service';
+import { ClassController } from './class/class.controller';
 
 @Module({
   imports: [TypeOrmModule.forRoot(
@@ -31,7 +33,7 @@ import { SpellController } from './spell/spell.controller';
     ),
     TypeOrmModule.forFeature([PathfinderClass, PathfinderSpell, PathfinderClassSpell])
   ],
-  controllers: [AppController, SpellController],
-  providers: [AppService, SpellService],
+  controllers: [AppController, SpellController, ClassController],
+  providers: [AppService, SpellService, ClassService],
 })
 export class AppModule {}
