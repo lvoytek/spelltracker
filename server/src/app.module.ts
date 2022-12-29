@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
+import { GoogleStrategy } from './auth/google.strategy'
+
 import { PathfinderClass } from './entities/pathfinderclass.entity';
 import { PathfinderClassSpell } from './entities/pathfinderclassspell.entity';
 import { PathfinderSpell } from './entities/pathfinderspell.entity';
@@ -17,6 +19,8 @@ import { ClassSpellService } from './classspell/classspell.service';
 import { ClassSpellController } from './classspell/classspell.controller';
 import { CharacterService } from './character/character.service';
 import { CharacterController } from './character/character.controller';
+import { AuthController } from './auth/auth.controller';
+import { AuthService } from './auth/auth.service';
 
 @Module({
   imports: [TypeOrmModule.forRoot(
@@ -38,7 +42,7 @@ import { CharacterController } from './character/character.controller';
     ),
     TypeOrmModule.forFeature([PathfinderClass, PathfinderSpell, PathfinderClassSpell, PathfinderCharacter])
   ],
-  controllers: [AppController, SpellController, ClassController, ClassSpellController, CharacterController],
-  providers: [AppService, SpellService, ClassService, ClassSpellService, CharacterService],
+  controllers: [AppController, SpellController, ClassController, ClassSpellController, CharacterController, AuthController],
+  providers: [AppService, GoogleStrategy, SpellService, ClassService, ClassSpellService, CharacterService, AuthService],
 })
 export class AppModule {}
