@@ -1,22 +1,28 @@
 import { Injectable } from '@nestjs/common';
-
+import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
-export class AuthService extends UserService {
+export class AuthService {
+  constructor(
+    private userService: UserService,
+    private jwtService: JwtService
+  ) {}
+
   async googleLogin(req) {
     if (!req.user)
       return { error: 'Authentication Failure' };
 
-    const existingUser = await super.get(req.user.email);
+    const payload = {username: req.user.email, sub: req.user.accessToken};
+    const existingUser = await this.userService.get(req.user.email);
 
     if(!existingUser) {
-      const newUser = await super.create({email: req.user.email, admin: false, characters: []});
+      const newUser = await this.userService.create({email: req.user.email, admin: false, characters: []});
 
       if(newUser)
         return {
           new: true,
-          user: newUser
+          accessToken: this.jwtService.sign(payload)
         };
 
       return { error: 'Server Error' };
@@ -24,7 +30,7 @@ export class AuthService extends UserService {
 
     return {
       new: false,
-      user: existingUser
+      accessToken: this.jwtService.sign(payload)
     };
   }
 }

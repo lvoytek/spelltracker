@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { JwtModule } from '@nestjs/jwt';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { GoogleStrategy } from './auth/google.strategy'
+import { JwtStrategy } from './auth/jwt.strategy';
 
 import { PathfinderClass } from './entities/pathfinderclass.entity';
 import { PathfinderClassSpell } from './entities/pathfinderclassspell.entity';
@@ -43,9 +45,13 @@ import { UserService } from './user/user.service';
       synchronize: true,
     }
     ),
-    TypeOrmModule.forFeature([PathfinderClass, PathfinderSpell, PathfinderClassSpell, PathfinderCharacter, User])
+    TypeOrmModule.forFeature([PathfinderClass, PathfinderSpell, PathfinderClassSpell, PathfinderCharacter, User]),
+    JwtModule.register({
+      secret: process.env["JWT_SECRET"],
+      signOptions: { expiresIn: process.env["JWT_EXPIRE_TIME"] || "30m" }
+    }),
   ],
   controllers: [AppController, SpellController, ClassController, ClassSpellController, CharacterController, AuthController, UserController],
-  providers: [AppService, GoogleStrategy, SpellService, ClassService, ClassSpellService, CharacterService, AuthService, UserService],
+  providers: [AppService, GoogleStrategy, JwtStrategy, SpellService, ClassService, ClassSpellService, CharacterService, AuthService, UserService],
 })
 export class AppModule {}
