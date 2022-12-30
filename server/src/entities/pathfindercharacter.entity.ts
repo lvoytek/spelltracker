@@ -1,9 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity()
 export class PathfinderCharacter {
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
   @Column("varchar", {length: 120})
   name: string;
@@ -25,4 +26,7 @@ export class PathfinderCharacter {
 
   @Column("tinyint")
   charisma: number;
+
+  @ManyToOne(() => User, (user) => user.characters)
+  user: User;
 }

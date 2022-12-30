@@ -10,6 +10,7 @@ import { PathfinderClass } from './entities/pathfinderclass.entity';
 import { PathfinderClassSpell } from './entities/pathfinderclassspell.entity';
 import { PathfinderSpell } from './entities/pathfinderspell.entity';
 import { PathfinderCharacter } from './entities/pathfindercharacter.entity';
+import { User } from './entities/user.entity';
 
 import { SpellService } from './spell/spell.service';
 import { SpellController } from './spell/spell.controller';
@@ -21,6 +22,8 @@ import { CharacterService } from './character/character.service';
 import { CharacterController } from './character/character.controller';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
+import { UserController } from './user/user.controller';
+import { UserService } from './user/user.service';
 
 @Module({
   imports: [TypeOrmModule.forRoot(
@@ -40,9 +43,9 @@ import { AuthService } from './auth/auth.service';
       synchronize: true,
     }
     ),
-    TypeOrmModule.forFeature([PathfinderClass, PathfinderSpell, PathfinderClassSpell, PathfinderCharacter])
+    TypeOrmModule.forFeature([PathfinderClass, PathfinderSpell, PathfinderClassSpell, PathfinderCharacter, User])
   ],
-  controllers: [AppController, SpellController, ClassController, ClassSpellController, CharacterController, AuthController],
-  providers: [AppService, GoogleStrategy, SpellService, ClassService, ClassSpellService, CharacterService, AuthService],
+  controllers: [AppController, SpellController, ClassController, ClassSpellController, CharacterController, AuthController, UserController],
+  providers: [AppService, GoogleStrategy, SpellService, ClassService, ClassSpellService, CharacterService, AuthService, UserService],
 })
 export class AppModule {}
