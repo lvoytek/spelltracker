@@ -47,7 +47,7 @@ import { UserService } from './user/user.service';
     ),
     TypeOrmModule.forFeature([PathfinderClass, PathfinderSpell, PathfinderClassSpell, PathfinderCharacter, User]),
     JwtModule.register({
-      secret: process.env["JWT_SECRET"],
+      secret: `${process.env["JWT_SECRET"]}`,
       signOptions: { expiresIn: process.env["JWT_EXPIRE_TIME"] || "30m" }
     }),
   ],
