@@ -11,7 +11,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get()
   async read(@Request() req): Promise<User> {
-    return this.userService.get(req.user.email);
+    return req.user;
   }
 
   @Put()
