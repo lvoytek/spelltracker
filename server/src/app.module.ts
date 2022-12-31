@@ -9,6 +9,7 @@ import { AppService } from './app.service';
 
 import { GoogleStrategy } from './auth/google.strategy'
 import { JwtStrategy } from './auth/jwt.strategy';
+import { JwtAdminStrategy } from './auth/jwtadmin.strategy';
 
 import { PathfinderClass } from './entities/pathfinderclass.entity';
 import { PathfinderClassSpell } from './entities/pathfinderclassspell.entity';
@@ -54,6 +55,6 @@ import { UserService } from './user/user.service';
     }),
   ],
   controllers: [AppController, SpellController, ClassController, ClassSpellController, CharacterController, AuthController, UserController],
-  providers: [AppService, GoogleStrategy, JwtStrategy, SpellService, ClassService, ClassSpellService, CharacterService, AuthService, UserService],
+  providers: [AppService, GoogleStrategy, JwtStrategy, JwtAdminStrategy, SpellService, ClassService, ClassSpellService, CharacterService, AuthService, UserService],
 })
 export class AppModule {}
