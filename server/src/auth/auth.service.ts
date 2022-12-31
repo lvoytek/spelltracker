@@ -13,7 +13,7 @@ export class AuthService {
     if (!req.user)
       return { error: 'Authentication Failure' };
 
-    const payload = {username: req.user.email, sub: req.user.accessToken};
+    const payload = {email: req.user.email, sub: req.user.accessToken};
     const existingUser = await this.userService.get(req.user.email);
 
     if(!existingUser) {

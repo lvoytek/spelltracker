@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 
+import { config } from './config';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -29,26 +31,26 @@ import { UserService } from './user/user.service';
 
 @Module({
   imports: [TypeOrmModule.forRoot(
-    (process.env["DB_TYPE"] && process.env["DB_TYPE"] != "sqlite") ?
+    (config.DB_TYPE != "sqlite") ?
     {
-      type: process.env["DB_TYPE"] as "mysql" | "mariadb" | "postgres" || "mysql",
-      database: process.env["DB_NAME"] || "spelltracker",
-      username: process.env["DB_USERNAME"] || "root",
-      password: process.env["DB_PASSWORD"] || "",
+      type: config.DB_TYPE as "mysql" | "mariadb" | "postgres" || "mysql",
+      database: config.DB_NAME,
+      username: config.DB_USERNAME,
+      password: config.DB_PASSWORD,
       entities: [__dirname + '/**/*.entity.{js,ts}'],
       synchronize: true,
     } :
     {
       type: "sqlite",
-      database: process.env["DB_NAME"] || "../db.sqlite3",
+      database: config.DB_NAME,
       entities: [__dirname + '/**/*.entity.{js,ts}'],
       synchronize: true,
     }
     ),
     TypeOrmModule.forFeature([PathfinderClass, PathfinderSpell, PathfinderClassSpell, PathfinderCharacter, User]),
     JwtModule.register({
-      secret: `${process.env["JWT_SECRET"]}`,
-      signOptions: { expiresIn: process.env["JWT_EXPIRE_TIME"] || "30m" }
+      secret: config.JWT_SECRET,
+      signOptions: { expiresIn: config.JWT_EXPIRE_TIME }
     }),
   ],
   controllers: [AppController, SpellController, ClassController, ClassSpellController, CharacterController, AuthController, UserController],
